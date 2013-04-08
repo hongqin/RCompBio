@@ -254,9 +254,23 @@ abline(m2, col='blue')
 text(30, 1.7, "SciAttitude ~ Metric + Age, R2=0.24, p=4.7E-12", col="blue", pos=4)
 
 summary(lm(tb2$SciAttitude ~ tb2$metric + tb2$age + tb2$gender + tb2$country  )) #age is signicant!!!
+#but this might be a bias in the sample
+# 1) there is many faculty
+# 2) people took the sample may be interested in the metric and science at the first place?!
+
+summary(lm(tb2$SciAttitude ~ tb2$metric + tb2$age + tb2$gender + tb2$country + tb2$degree  )) #age is signicant!!!
 
 summary(lm(tb2$SciAttitude ~ tb2$SciLitScore))
 summary(lm(tb2$SciAttitude ~ tb2$SciLitScore + tb2$metric))
+###########
+# remove phD from the samples
+#
+summary(tb2[, 1:5])
+tb3 = tb2[ - grep('Ph.D.', tb2$degree)  , ]
+summary(tb3)
+summary(lm(tb3$SciAttitude ~ tb3$metric + tb3$age + tb3$gender + tb3$country + tb3$degree  )) 
+#age is still signicant after PhD are removed from the sample
+
 
 ########test 
 testTwoFactorTb2 = function( fac1, fac2) {
