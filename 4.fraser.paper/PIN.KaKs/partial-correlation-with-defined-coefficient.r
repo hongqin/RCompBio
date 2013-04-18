@@ -1,0 +1,7 @@
+require(mvtnorm)
+help(package=mvtnorm)
+sigma <- matrix(c(1,sqrt(0.5),sqrt(0.5),1), ncol=2)
+x <- rmvnorm(n=500, mean=c(0,0), sigma=sigma)
+colMeans(x)
+var(x)
+summary(lm(x[,1] ~ x[,2]))

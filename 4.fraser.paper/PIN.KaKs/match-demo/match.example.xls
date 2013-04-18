@@ -1,0 +1,1 @@
+Kdata					Net			orfname	Ka	Ks	degree		id	Freq		"data$degree = net$Freq[match(data$orfname, net$id )]"gene2	0.1	1			gene10	1		gene11	0.2	0.9			gene11	2		gene9	0.1	1.2			gene2	1		gene10	0.3	1.3			gene15	3		gene13	0.3	0.8			gene2	4		gene14	0.4	1.1			gene21	2		gene21	0.3	1.2			gene9	5		
