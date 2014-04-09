@@ -4,7 +4,7 @@
 # So, I wrote v2 and wrapp the old function to v2 function call. 
 #permute.pairs.wo.selfpairs = function( inpairs,  ncycles=10, debug=1 ) {
 ms02_singlerun = function( inpairs,  ncycles=10, indebug=0 ) { # Renamed, 2014 Feb 12
-  ms02_singlerun_v2 = function( inpairs,  ncycles=ncycles, indebug=indebug ) { 
+  return( ms02_singlerun_v2( inpairs,  ncycles=ncycles, indebug=indebug ))
 }
 
 
