@@ -1,13 +1,13 @@
 #2014 April 9, Hong Qin hqin@spelman.edu
 
 #20140408 old ms02_singlerun() did not check id1-id2 versus id2-id1. 
-# So, I wrote v2 and wrapp the old function to v2 function call. 
-#permute.pairs.wo.selfpairs = function( inpairs,  ncycles=10, debug=1 ) {
+# So, I wrote v2 and wrapp the previous function to v2 function call. 
 ms02_singlerun = function( inpairs,  ncycles=10, indebug=0 ) { # Renamed, 2014 Feb 12
   return( ms02_singlerun_v2( inpairs,  ncycles=ncycles, indebug=indebug ))
 }
 
 
+#20140409, v2 has trouble with small networks
 ms02_singlerun_v2 = function( inpairs,  ncycles=10, indebug=0 ) { 
   if (ncycles >= 1 ) {
     if(indebug>0) {
