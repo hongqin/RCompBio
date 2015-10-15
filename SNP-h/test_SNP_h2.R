@@ -1,11 +1,13 @@
 set.seed(2015)
-N=1E3
-genotype_elements = c(-1,0,1)
 #genotype_elements = rnorm(N)
+
+set.seed(2015)
+N=1E5
+genotype_elements = c(-1,0,1)
 error = rnorm(N)
 tb = data.frame(error)
 tb$g1 = sample(genotype_elements, N, replace=T)
-h2 = 0.5
+h2 = 1E-5 
 tb$phynotype = sqrt(h2)*tb$g1 + sqrt(1-h2)*tb$error
 summary(lm(tb$phynotype ~ tb$g1))
 
