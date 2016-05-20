@@ -1,10 +1,13 @@
 # source("http://bioconductor.org/biocLite.R"); 
 # biocLite("Heatplus");
+# biocLite("EBImage");
+
 
  require(Heatplus); #load Heatplus package into R
  require(adimpro)
  require(pixmap)
-
+ set.seed(2016)
+ 
  g = read.pnm("gsmall.pbm")
  m = matrix(g@grey, g@size[1], g@size[2])
  image(m, col=gray(0:10/10), main="original")

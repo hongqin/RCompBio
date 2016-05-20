@@ -1,0 +1,45 @@
+---
+title: "Image Clustering Exercise"
+author: "h qin"
+date: "March 28, 2016"
+output: html_document
+---
+
+Install the necessary R packages. You only need to run these codes once. 
+```{r}
+ # source("http://bioconductor.org/biocLite.R"); 
+ # biocLite("Heatplus");
+ # biocLite("EBImage");
+```
+
+Load the libraries
+```{r}
+library("Heatplus")
+library("EBImage")
+```
+
+Set working directory to "Source file location". 
+The, check the working directory. 
+```{r}
+ set.seed(2016)
+ list.files()
+ g = readImage(files="gsmall.jpg")
+ #display(g)
+ str(g)
+ 
+ m = g@.Data
+ image(m, col=gray(0:10/10), main="original")
+       
+ rows = dim(g@.Data)[1]
+ m2 = m[sample(1:rows, size=rows),  ] 
+ image(m2, col=gray(0:10/10), main="shuffled")
+ 
+ h = hclust(dist(m2))
+ m3 = m2[h$order, ]
+ image(m3, col=gray(0:10/10), main="hclust result")
+ g2 = g
+ g2@.Data = m3
+ #display(g2)
+ 
+```
+
