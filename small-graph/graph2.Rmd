@@ -1,0 +1,131 @@
+---
+title: "igraph directed graph demo"
+author: "H Qin"
+date: "2018 June 25"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r}
+library("pracma")
+library("Smisc")
+require(Matrix)
+require(igraph)
+
+pairs = read.csv("graph2.csv", colClass = c("character", "character"))
+pairs
+
+```
+```{r}
+pairs = pairs[order(pairs[,2]) , ]
+pairs
+```
+
+
+```{r}
+g = graph.data.frame(pairs, directed=F)
+plot(g)
+g.degree = degree(g)
+g.degree [g.degree == max(g.degree)] 
+
+g.shortestpath.m = shortest.paths(g, mode="in")
+str(g.shortestpath.m)
+sorted.names = sort( rownames(g.shortestpath.m) )
+gsm = g.shortestpath.m[, sorted.names]
+gsm = gsm[sorted.names, ]
+
+```
+
+
+```{r}
+#A = as_adjacency_matrix(g, attr = NULL,
+#  edges = FALSE, names = TRUE, sparse = igraph_opt("sparsematrices"))
+A = as_adjacency_matrix(g, attr = NULL,
+  edges = TRUE, names = TRUE, sparse = FALSE)
+A;
+```
+
+
+
+```{r}
+rankMatrix(A, tol=1E-1)
+A; 
+```
+
+
+```{r}
+eig = eigen(A)
+eig;
+
+e=eig$values;
+round_e<-as.numeric(format(round(e, 4)))
+round_e;
+```
+
+```{r}
+
+
+lambda_M<-round_e[duplicated(round_e)]
+lambda_M;
+
+lambda_M<-lambda_M[1]
+
+```
+```{r}
+lambda_M;
+```
+
+```{r}
+    A_lambdaI<-A-lambda_M*diag(length(e));
+    A_lambdaI;
+    
+```
+```{r}
+    A_lambdaI<-round(A_lambdaI)  #Why? 
+    A_lambdaI;
+
+```
+
+```{r}
+   ColumnCF<-t(rref(t(A_lambdaI))) #column canonical form
+    ColumnCF
+ 
+```
+
+```{r}
+QRF<-qr(ColumnCF) #QR decomposition
+QRF
+```
+
+```{r}
+    Lin_ind_ColumnCF<-ColumnCF[qr(t(ColumnCF))$pivot[seq_len(qr(ColumnCF)$rank)],] ;
+    Lin_ind_ColumnCF; 
+
+```
+
+```{r}
+QRF$pivot
+QRF$rank
+
+ lin_ind_indices<-qr(t(ColumnCF))$pivot[seq_len(qr(ColumnCF)$rank)]; 
+    lin_ind_indices;
+```
+
+```{r}
+    length_A<-c(1:length(e));
+    n_D<- length(e) - QRF$rank ;
+    n_D;
+```
+
+```{r}
+    n_D_rows<-list(setdiff(length_A,lin_ind_indices));
+    n_D_rows;
+```
+
+
+```{r}
+    
+   result = list(nd=n_D, nd.rows= n_D_rows ); 
+   result; 
+```
